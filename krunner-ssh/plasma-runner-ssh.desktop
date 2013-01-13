@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=SSH runner
+Comment=Start SSH connections
+X-KDE-ServiceTypes=Plasma/Runner
+Type=Service
+Icon=utilities-terminal
+X-KDE-Library=krunner_ssh
+X-KDE-PluginInfo-Name=krunner_ssh
+X-KDE-PluginInfo-Version=0.1.0
+X-KDE-PluginInfo-License=Unlicense
+X-KDE-PluginInfo-EnabledByDefault=false
+X-KDE-PluginInfo-Email=heap.tim@gmail.com
+X-KDE-PluginInfo-Author=Tim Heap
+X-KDE-PluginInfo-Website=http://timheap.me/
