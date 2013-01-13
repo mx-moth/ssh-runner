@@ -36,6 +36,7 @@ class SSHRunner : public Plasma::AbstractRunner {
 
 	private:
 		bool isRunning(const QString name);
+		Plasma::QueryMatch constructMatch(QString host, Plasma::QueryMatch::Type priority);
 		SSHConfigReader *rd;
 };
 

@@ -125,6 +125,15 @@ SSHRunner::~SSHRunner() {
 	rd = 0;
 }
 
+Plasma::QueryMatch SSHRunner::constructMatch(QString host, Plasma::QueryMatch::Type priority) {
+	Plasma::QueryMatch match(this);
+	match.setText(QString("SSH to host %1").arg(host));
+	match.setType(priority);
+	match.setIcon(mIcon);
+	match.setData(QVariant(host));
+	return match;
+}
+
 void SSHRunner::match(Plasma::RunnerContext &context) {
 	QString request = context.query();
 
@@ -140,20 +149,15 @@ void SSHRunner::match(Plasma::RunnerContext &context) {
 
 	QList<Plasma::QueryMatch> matches;
 	foreach(SSHHost h, rd->hosts()) {
-		if (h.name.contains(request, Qt::CaseInsensitive)) {
-			Plasma::QueryMatch match(this);
-
-			match.setType(request.compare(h.name, Qt::CaseInsensitive)
-				? Plasma::QueryMatch::PossibleMatch
-				: Plasma::QueryMatch::ExactMatch);
-
-			if (request == h.name) exactMatchFound = true;
-
-			match.setText(QString("SSH to host %1").arg(h.name));
-			match.setIcon(mIcon);
-			match.setData(QVariant(h.name));
-
-			matches << match;
+		if (h.name.compare(request, Qt::CaseInsensitive) == 0) {
+			matches << constructMatch(h.name, Plasma::QueryMatch::ExactMatch);
+			exactMatchFound = true;
+		} else if (request.length() > 2) {
+			if (h.name.startsWith(request, Qt::CaseInsensitive)) {
+				matches << constructMatch(h.name, Plasma::QueryMatch::PossibleMatch);
+			} else if (h.name.contains(request, Qt::CaseInsensitive)) {
+				matches << constructMatch(h.name, Plasma::QueryMatch::CompletionMatch);
+			}
 		}
 	}
 
