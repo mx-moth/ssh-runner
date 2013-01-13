@@ -9,5 +9,3 @@ target_link_libraries(krunner_ssh ${KDE4_KIO_LIBS} ${KDE4_PLASMA_LIBS} ${QT_QTXM
 
 install(TARGETS krunner_ssh DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES plasma-runner-ssh.desktop DESTINATION ${SERVICES_INSTALL_DIR})
-
-install(DIRECTORY icons/ DESTINATION ${CMAKE_INSTALL_PREFIX}/share/pixmaps/ssh-runner)
